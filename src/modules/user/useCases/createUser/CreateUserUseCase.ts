@@ -13,6 +13,7 @@ interface ICreateUserResponse {
   userType:string,
   email: string;
 }
+
 class CreateUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 

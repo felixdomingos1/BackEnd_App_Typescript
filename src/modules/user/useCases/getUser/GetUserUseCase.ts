@@ -1,9 +1,9 @@
 import {
-  UserRepository
-} from "../../repositories/implements/UserRepository";
+  IUserRepository
+} from "../../repositories/IUserRepository";
 
 class GetUserUseCase {
-  constructor(private userRepository: UserRepository) {}
+  constructor(private userRepository: IUserRepository) {}
 
   async execute(id : number){
 
