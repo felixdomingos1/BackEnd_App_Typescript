@@ -8,14 +8,18 @@ import { createTokenService } from "../../../../services/createTokenService";
 
 interface ICreateUserResponse {
   token: string;
-  name: string;
+  userName:string, 
+  userSirName:string,
+  userType:string,
   email: string;
 }
 class CreateUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
   async execute({
-    name,
+    userName, 
+    userSirName,
+    userType,
     email,
     password,
   }: ICreateUserUseCaseDTO): Promise<ICreateUserResponse> {
@@ -26,7 +30,9 @@ class CreateUserUseCase {
     const passwordHash = await hash(password, 8);
 
     const user = await this.userRepository.create({
-      name,
+      userName, 
+      userSirName,
+      userType,
       email,
       passwordHash
     });
@@ -35,7 +41,9 @@ class CreateUserUseCase {
 
     return {
       token,
-      name: user.name,
+      userSirName,
+      userType,
+      userName: user.userName,
       email: user.email,
     };
   }
