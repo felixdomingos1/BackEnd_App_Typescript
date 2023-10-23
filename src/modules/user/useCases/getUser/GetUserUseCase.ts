@@ -5,7 +5,7 @@ import {
 class GetUserUseCase {
   constructor(private userRepository: UserRepository) {}
 
-  async execute(id:number){
+  async execute(id : number){
 
     const user_existe = await this.userRepository.findById(id);
     

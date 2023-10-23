@@ -15,7 +15,7 @@ userRouter.post(
 userRouter.post("/signin", (req, res) => {
   return createSession.handle(req, res);
 });
-userRouter.get("/members/:id", (req, res) => {
+userRouter.get("/:id", (req, res) => {
   return getUser.handle(req, res);
 });
 
