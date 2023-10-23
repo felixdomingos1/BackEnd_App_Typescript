@@ -1,16 +1,20 @@
-import { User } from "@prisma/client";
+import { User } from "@prisma/client"; 
 import prismaClient from "../../../../prisma";
 import { IUserRepository, ICreateUserDTO } from "../IUserRepository";
 
 class UserRepository implements IUserRepository {
   async create({
-    name,
+    userName, 
+    userSirName,
+    userType,
     email,
     passwordHash,
   }: ICreateUserDTO): Promise<User> {
     const user = await prismaClient.user.create({
       data: { 
-        name, 
+        userName, 
+        userSirName,
+        userType,
         email, 
         passwordHash 
       },
@@ -26,12 +30,10 @@ class UserRepository implements IUserRepository {
 
     return user;
   }
-
   async findById(id: number): Promise<User> {
     const user = await prismaClient.user.findFirst({
       where: { id },
     });
-
     return user;
   }
 }
