@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String
+  surName String
+  userType String
+  studant Studant? @relation(fields: [id], references: [studantId])
+  teacher Teacher? @relation(fields: [id], references: [teacherId])
+  admin Admin? @relation(fields: [id], references: [adminId])
+  passwordHash String
+  @@map("user")
+}
+model Studant {
+  id Int @id @default(autoincrement())
+  dataEnrollment DateTime?
+  user User? @relation(fields: [userId], references: [id])
+  userId Int? @unique
+  @@map("studant")
+}
+model Teacher {
+  id Int @id @default(autoincrement())
+  dataHiring DateTime? 
+  user User? @relation(fields: [userId], references: [id])
+  userId Int?
+  @@map("teacher")
+}
+model Admin {
+  id Int @id @default(autoincrement())
+  Acessleval Int?
+  user User? @relation(fields: [userId], references: [id])
+  userId Int?
+  @@map("admin")
+}
+
+model Course {
+  id Int @id @default(autoincrement())
+  courseName String
+  courseDescription String
+  teacherSubject Teacher @relation(fields: [teacherId], references: [id])
+  teacherId Int
+  @@map("course")
+}
+model Enrollment {
+  id Int @id @default(autoincrement())
+  studant Studant @relation(fields: [studantId], references: [id])
+  studantId Int
+  course Course @relation(fields: [courseId], references: [id])
+  courseId Int
+  @@map("enrollment")
+}
