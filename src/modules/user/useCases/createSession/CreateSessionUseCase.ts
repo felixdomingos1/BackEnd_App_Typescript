@@ -17,7 +17,7 @@ class CreateSessionUseCase {
 
     if (!user) throw new AppError("Email ou password inválido!", 401);
 
-    const passwordValid = await compare(password, user.password_hash);
+    const passwordValid = await compare(password, user.passwordHash);
 
     if (!passwordValid) throw new AppError("Email ou password inválida!", 401);
 

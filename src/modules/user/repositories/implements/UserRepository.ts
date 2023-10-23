@@ -9,7 +9,11 @@ class UserRepository implements IUserRepository {
     passwordHash,
   }: ICreateUserDTO): Promise<User> {
     const user = await prismaClient.user.create({
-      data: { name, email, passwordHash },
+      data: { 
+        name, 
+        email, 
+        passwordHash 
+      },
     });
 
     return user;

@@ -9,13 +9,16 @@ datasource db {
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
-  name  String
-  surName String
+  userName  String
+  userSirName String
   userType String
-  studant Studant? @relation(fields: [id], references: [studantId])
-  teacher Teacher? @relation(fields: [id], references: [teacherId])
-  admin Admin? @relation(fields: [id], references: [adminId])
   passwordHash String
+  studant Studant? 
+  teacher Teacher?
+  admin Admin? 
+  studantId Int? 
+  teacherId Int? 
+  adminId Int? 
   @@map("user")
 }
 model Studant {
@@ -23,20 +26,22 @@ model Studant {
   dataEnrollment DateTime?
   user User? @relation(fields: [userId], references: [id])
   userId Int? @unique
+  enrollments Enrollment?
   @@map("studant")
 }
 model Teacher {
   id Int @id @default(autoincrement())
   dataHiring DateTime? 
   user User? @relation(fields: [userId], references: [id])
-  userId Int?
+  course Course?
+  userId Int? @unique
   @@map("teacher")
 }
 model Admin {
   id Int @id @default(autoincrement())
   Acessleval Int?
   user User? @relation(fields: [userId], references: [id])
-  userId Int?
+  userId Int? @unique
   @@map("admin")
 }
 
@@ -44,15 +49,16 @@ model Course {
   id Int @id @default(autoincrement())
   courseName String
   courseDescription String
-  teacherSubject Teacher @relation(fields: [teacherId], references: [id])
-  teacherId Int
+  teacherSubject Teacher? @relation(fields: [teacherId], references: [id]) 
+  teacherId Int? @unique
+  enrollments Enrollment[]
   @@map("course")
 }
 model Enrollment {
   id Int @id @default(autoincrement())
-  studant Studant @relation(fields: [studantId], references: [id])
-  studantId Int
-  course Course @relation(fields: [courseId], references: [id])
-  courseId Int
+  studant Studant? @relation(fields: [studantId], references: [id]) 
+  course Course?  @relation(fields: [courseId], references: [id]) 
+  studantId Int? @unique
+  courseId Int? @unique
   @@map("enrollment")
 }

@@ -21,7 +21,7 @@ class CreateUserUseCase {
   }: ICreateUserUseCaseDTO): Promise<ICreateUserResponse> {
     const email_existe = await this.userRepository.findByEmail(email);
 
-    if (email_existe) throw new AppError("Contacto não autorizado!", 400);
+    if (!email_existe) throw new AppError("Contacto não autorizado!", 400);
 
     const passwordHash = await hash(password, 8);
 
