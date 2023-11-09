@@ -4,20 +4,28 @@ import { IUserRepository, ICreateUserDTO } from "../IUserRepository";
 
 class UserRepository implements IUserRepository {
   async create({
-    userName, 
-    userSirName,
-    userType,
+    firstName, 
+    lastName,
+    picturePath,
+    location,
+    occupation,
+    viewedProfile,
+    impressions,
     email,
     passwordHash,
   }: ICreateUserDTO): Promise<User> {
-    const user = await prismaClient.user.create({
-      data: { 
-        userName, 
-        userSirName,
-        userType,
-        email, 
-        passwordHash 
-      },
+    const user = await prismaClient.user.create( {
+        data : { 
+          email,
+          firstName,
+          lastName,
+          passwordHash,
+          picturePath,
+          location,
+          occupation,
+          viewedProfile,
+          impressions,
+        }
     });
 
     return user;

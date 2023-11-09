@@ -7,22 +7,31 @@ import { AppError } from "../../../../errors/AppError";
 import { createTokenService } from "../../../../services/createTokenService";
 
 interface ICreateUserResponse {
-  token: string;
-  userName:string, 
-  userSirName:string,
-  userType:string,
-  email: string;
+  token: string,
+  email: string,
+  firstName: string,
+  lastName: string,
+  password: string,
+  picturePath: string,
+  location: string,
+  occupation: string,
+  viewedProfile: number,
+  impressions : number,
 }
 
 class CreateUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
   async execute({
-    userName, 
-    userSirName,
-    userType,
     email,
+    firstName,
+    lastName,
     password,
+    picturePath,
+    location,
+    occupation,
+    viewedProfile,
+    impressions
   }: ICreateUserUseCaseDTO): Promise<ICreateUserResponse> {
     const email_existe = await this.userRepository.findByEmail(email);
 
@@ -31,10 +40,14 @@ class CreateUserUseCase {
     const passwordHash = await hash(password, 8);
 
     const user = await this.userRepository.create({
-      userName, 
-      userSirName,
-      userType,
       email,
+      firstName,
+      lastName,
+      picturePath,
+      location,
+      occupation,
+      viewedProfile : Math.floor(Math.random() * 10000),
+      impressions : Math.floor(Math.random() * 10000),
       passwordHash
     });
 
@@ -42,10 +55,15 @@ class CreateUserUseCase {
 
     return {
       token,
-      userSirName,
-      userType,
-      userName: user.userName,
+      lastName,
+      picturePath,
+      location,
+      occupation,
+      viewedProfile,
+      impressions,
+      firstName: user.firstName,
       email: user.email,
+      password
     };
   }
 }

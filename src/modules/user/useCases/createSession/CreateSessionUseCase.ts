@@ -5,7 +5,7 @@ import { compare } from "bcrypt";
 
 interface Session {
   token: string;
-  userName: string;
+  firstName: string;
   email: string;
 }
 
@@ -25,7 +25,7 @@ class CreateSessionUseCase {
 
     return {
       token,
-      userName: user.userName,
+      firstName: user.firstName,
       email: user.email
     };
   }

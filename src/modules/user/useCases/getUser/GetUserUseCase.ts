@@ -6,14 +6,12 @@ class GetUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
   async execute(id : number){
-
-    const user_existe = await this.userRepository.findById(id);
-    
-    if (user_existe) {
-      return user_existe
+    if (!id) {
+      const users = await this.userRepository
+      users
     }
-    const users = await this.userRepository
-    return users
+    const user_existe = await this.userRepository.findById(id);
+    return user_existe
   }
 }
 export {

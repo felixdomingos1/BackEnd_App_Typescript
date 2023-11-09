@@ -1,33 +1,37 @@
 import { User } from '@prisma/client';
 
 interface ICreateUserDTO {
-  userName:string, 
-  userSirName:string,
-  userType:string,
-  email: string;
-  passwordHash: string;
+  firstName : string, 
+  lastName: string,
+  picturePath : string,
+  location : string,
+  occupation : string,
+  viewedProfile : number,
+  impressions : number,
+  email : string,
+  passwordHash : string,
 }
 
 interface ICreateUserUseCaseDTO {
-  userName:string, 
-  userSirName:string,
-  userType:string,
-  email: string;
-  password: string;
+  firstName : string, 
+  lastName: string,
+  picturePath : string,
+  location : string,
+  occupation : string,
+  viewedProfile : number,
+  impressions : number,
+  email : string,
+  password : string
 }
-
-// interface IGetUserUseCaseDTO {
-//   id:string
-// }
-// interface IGetUserDTO {
-//   id:string
-// }
-
 interface IUserRepository {
   create({
-    userName, 
-    userSirName,
-    userType,
+    firstName,
+    lastName,
+    picturePath,
+    location,
+    occupation,
+    viewedProfile,
+    impressions,
     email,
     passwordHash,
   }: ICreateUserDTO): Promise<User>;
